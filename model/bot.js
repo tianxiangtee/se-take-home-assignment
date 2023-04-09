@@ -14,7 +14,7 @@ module.exports = class Bot {
         this.timeoutId = setTimeout(() => {
             this.currentOrder.status = 'COMPLETE';
             completedOrders.push(this.currentOrder)
-            console.log(`Bot ${this.botNumber} has completed processing order ${order.orderNumber} (${order.type})`);
+            // console.log(`Bot ${this.botNumber} has completed processing order ${order.orderNumber} (${order.type})`);
             this.currentOrder = null;
             this.status = 'IDLE';
             checkPendingOrders();
