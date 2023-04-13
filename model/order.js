@@ -4,6 +4,6 @@ module.exports = class Order {
         this.orderNumber = orderNumber;
         this.type = type;
         this.status = 'PENDING';
-        this.processingTime = 10000; // 10 seconds
+        this.processingTime = this.type ==="VIP"? 5000 : 10000; // 10 seconds
     }
 }

@@ -51,7 +51,9 @@ function removeBot() {
     const botToRemove = bots.pop();
     const processingOrder = botToRemove.currentOrder?.orderNumber
     if (botToRemove.status === 'PROCESSING') {
-        botToRemove.cancelOrder(addOrder); // cancel the current order before removing the bot
+        const currentOrder = botToRemove.currentOrder;
+        botToRemove.cancelOrder(); // cancel the current order before removing the bot
+        addOrder(currentOrder.type, currentOrder.orderNumber, true)
         console.log(`Bot ${botToRemove.botNumber} was removed while processing order ${processingOrder}`);
     } else {
         console.log(`Bot ${botToRemove.botNumber} was removed while idle`);
@@ -69,7 +71,10 @@ function showBots() {
         if (bot.status === 'IDLE') {
             console.log(`Bot ${bot.botNumber} is idle`);
         } else {
-            console.log(`Bot ${bot.botNumber} is processing order ${bot.currentOrder.orderNumber} (${bot.currentOrder.type})`);
+            let processingTime = bot.currentOrder.processingTime
+            var remainingSeconds = (processingTime - (new Date().getTime() - bot.processStartTime.getTime())) / 1000;
+            console.log('countdown', remainingSeconds)
+            console.log(`Bot ${bot.botNumber} is processing order ${bot.currentOrder.orderNumber} (${bot.currentOrder.type}), time (${remainingSeconds})`);
         }
     });
 }
